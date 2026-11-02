@@ -1,0 +1,162 @@
+{% extends 'reporting/layout.html.twig' %}
+
+{# Durations and hours are pre-formatted in PHP (SupportReport): Twig macros
+   imported in a block are out of scope inside `{% embed %}`, and with
+   strict_variables off that fails silently with empty cells. #}
+
+{% block report %}
+    {% from '@theme/components/alert.html.twig' import alert %}
+
+    {% if not configured %}
+        {% if is_granted('support_hours_settings') %}
+            {{ alert({type: 'info', important: true, raw: true, description: 'support_hours.report.not_configured'|trans({'%url%': path('support_hours_settings')})}) }}
+        {% else %}
+            {{ alert({type: 'info', important: true, description: 'support_hours.report.not_configured_ask'|trans}) }}
+        {% endif %}
+    {% else %}
+
+    {% if error %}
+        {{ alert({type: 'danger', important: true, description: error|trans}) }}
+    {% endif %}
+
+    {% embed '@theme/embeds/card.html.twig' %}
+        {% block box_title %}{{ 'support_hours.report.filters'|trans }}{% endblock %}
+        {% block box_body %}
+            <form method="get" action="{{ path('support_hours_report') }}" class="row g-3 align-items-end">
+                <div class="col-md-2">
+                    <label class="form-label" for="sh_month">{{ 'month'|trans }}</label>
+                    <input class="form-control" id="sh_month" type="month" name="month" value="{{ period.wholeMonth ? period.from|date('Y-m') : '' }}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="sh_from">{{ 'support_hours.report.or_from'|trans }}</label>
+                    <input class="form-control" id="sh_from" type="date" name="from" value="{{ period.wholeMonth ? '' : period.from|date('Y-m-d') }}">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="sh_to">{{ 'support_hours.report.to'|trans }}</label>
+                    <input class="form-control" id="sh_to" type="date" name="to" value="{{ period.wholeMonth ? '' : period.to|date('Y-m-d') }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="sh_customers">{{ 'customers'|trans }}</label>
+                    <select class="form-select selectpicker" id="sh_customers" name="customers[]" multiple data-placeholder="{{ 'support_hours.report.all_customers'|trans }}">
+                        {% for customer in customer_options %}
+                            <option value="{{ customer.id }}" {{ customer.id in selected_customers ? 'selected' : '' }}>{{ customer.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-2 btn-list justify-content-end">
+                    <button type="submit" class="btn btn-primary">{{ 'support_hours.report.show'|trans }}</button>
+                    {% if not report.empty %}
+                        <a class="btn" href="{{ path('support_hours_report_export', query) }}">Excel</a>
+                    {% endif %}
+                    {% if is_granted('support_hours_settings') %}
+                        <a class="btn btn-ghost-secondary" href="{{ path('support_hours_settings') }}" title="{{ 'support_hours.report.settings_hint'|trans }}">{{ 'settings'|trans }}</a>
+                    {% endif %}
+                </div>
+            </form>
+            <div class="small text-secondary mt-2">
+                {{ 'support_hours.report.filter_help'|trans }}
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+    <div class="row row-cards mb-3">
+        {% for card in [
+            ['support_hours.report.total_hours', report.durationFormatted],
+            ['support_hours.report.entries', report.entryCount],
+            ['customers', report.customerCount],
+            ['users', report.userCount]
+        ] %}
+            <div class="col-6 col-md-3">
+                <div class="card card-sm"><div class="card-body">
+                    <div class="text-secondary">{{ card[0]|trans }}</div>
+                    <div class="h2 m-0">{{ card[1] }}</div>
+                </div></div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if report.empty %}
+        {{ alert({type: 'warning', description: 'support_hours.report.empty'|trans({'%period%': period_label})}) }}
+    {% else %}
+        {% embed '@theme/embeds/card.html.twig' with {'fullsize': true} %}
+            {% block box_title %}{{ 'support_hours.report.summary_title'|trans({'%period%': period_label}) }}{% endblock %}
+            {% block box_body_class %}p-0{% endblock %}
+            {% block box_body %}
+                <table class="table table-vcenter card-table">
+                    <thead>
+                        <tr><th>{{ 'customer'|trans }}</th><th class="text-end">{{ 'support_hours.report.entries'|trans }}</th><th class="text-end">{{ 'hours'|trans }}</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for customer in report.customersByDuration %}
+                            <tr>
+                                <td>{{ customer.name }}</td>
+                                <td class="text-end">{{ customer.entries|length }}</td>
+                                <td class="text-end">{{ customer.durationFormatted }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="fw-bold"><td>{{ 'support_hours.report.total'|trans }}</td><td class="text-end">{{ report.entryCount }}</td><td class="text-end">{{ report.durationFormatted }}</td></tr>
+                    </tfoot>
+                </table>
+            {% endblock %}
+        {% endembed %}
+
+        {% embed '@theme/embeds/card.html.twig' with {'fullsize': true} %}
+            {% block box_title %}{{ 'support_hours.report.detail'|trans }}{% endblock %}
+            {% block box_tools %}
+                <span class="text-secondary small">
+                    {{ 'support_hours.report.range'|trans({'%first%': first_index, '%last%': first_index + page_entries|length - 1, '%total%': report.entryCount}) }}
+                </span>
+            {% endblock %}
+            {% block box_body_class %}p-0{% endblock %}
+            {% block box_body %}
+                <table class="table table-vcenter card-table dataTable">
+                    <thead>
+                        <tr>
+                            <th>{{ 'date'|trans }}</th>
+                            <th>{{ 'project'|trans }}</th>
+                            <th>{{ 'user'|trans }}</th>
+                            <th class="text-end">{{ 'hours'|trans }}</th>
+                            <th class="d-none d-md-table-cell">{{ 'description'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in page_entries %}
+                            <tr>
+                                <td class="text-nowrap">{{ entry.date|date_short }}</td>
+                                <td>{{ entry.projectLabel }}</td>
+                                <td>{{ entry.userName }}</td>
+                                <td class="text-end">{{ entry.durationFormatted }}</td>
+                                <td class="d-none d-md-table-cell">{{ entry.description }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endblock %}
+            {% block box_footer %}
+                {% if pages > 1 %}
+                    <ul class="pagination m-0 justify-content-end">
+                        {% set base = query|merge({'customers': selected_customers}) %}
+                        <li class="page-item {{ page == 1 ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ path('support_hours_report', base|merge({page: page - 1})) }}">‹ {{ 'support_hours.report.previous'|trans }}</a>
+                        </li>
+                        {% for p in 1..pages %}
+                            {% if p == 1 or p == pages or (p >= page - 2 and p <= page + 2) %}
+                                <li class="page-item {{ p == page ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ path('support_hours_report', base|merge({page: p})) }}">{{ p }}</a>
+                                </li>
+                            {% elseif p == page - 3 or p == page + 3 %}
+                                <li class="page-item disabled"><span class="page-link">…</span></li>
+                            {% endif %}
+                        {% endfor %}
+                        <li class="page-item {{ page == pages ? 'disabled' : '' }}">
+                            <a class="page-link" href="{{ path('support_hours_report', base|merge({page: page + 1})) }}">{{ 'support_hours.report.next'|trans }} ›</a>
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+    {% endif %}
+{% endblock %}

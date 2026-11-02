@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # The bundle class itself must stay registered: PluginManager discovers
+    # plugins through the PluginInterface tag on the *service*.
+    KimaiPlugin\SupportHoursBundle\:
+        resource: '../../*'
+        exclude:
+            - '../../Resources/'
+            - '../../Model/'
+            - '../../vendor/'
+
+    KimaiPlugin\SupportHoursBundle\Controller\:
+        resource: '../../Controller/'
+        tags: ['controller.service_arguments']

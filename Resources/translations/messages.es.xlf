@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="es" datatype="plaintext" original="messages.en.xlf">
+    <body>
+      <trans-unit id="0d5096c5" resname="support_hours.report.not_configured">
+        <source>No support criterion is configured yet, so nothing counts as support. &lt;a href="%url%"&gt;Choose projects, customers or project names in the settings&lt;/a&gt;.</source>
+        <target>Todavía no hay ningún criterio de soporte configurado, así que nada cuenta como soporte. &lt;a href="%url%"&gt;Elige proyectos, clientes o nombres de proyecto en la configuración&lt;/a&gt;.</target>
+      </trans-unit>
+      <trans-unit id="d8058c04" resname="support_hours.report.not_configured_ask">
+        <source>No support criterion is configured yet, so nothing counts as support. Ask an administrator to configure it.</source>
+        <target>Todavía no hay ningún criterio de soporte configurado, así que nada cuenta como soporte. Pide a un administrador que lo configure.</target>
+      </trans-unit>
+      <trans-unit id="1917f763" resname="support_hours.report.filters">
+        <source>Filters</source>
+        <target>Filtros</target>
+      </trans-unit>
+      <trans-unit id="85fbd39c" resname="support_hours.report.or_from">
+        <source>or from</source>
+        <target>o desde</target>
+      </trans-unit>
+      <trans-unit id="4329a219" resname="support_hours.report.to">
+        <source>to</source>
+        <target>hasta</target>
+      </trans-unit>
+      <trans-unit id="db190253" resname="support_hours.report.all_customers">
+        <source>All customers</source>
+        <target>Todos los clientes</target>
+      </trans-unit>
+      <trans-unit id="84911e35" resname="support_hours.report.show">
+        <source>Show</source>
+        <target>Ver</target>
+      </trans-unit>
+      <trans-unit id="09476291" resname="support_hours.report.settings_hint">
+        <source>What counts as support, and recipients</source>
+        <target>Qué cuenta como soporte y destinatarios</target>
+      </trans-unit>
+      <trans-unit id="654b4670" resname="support_hours.report.filter_help">
+        <source>A date range takes precedence over the month. Without filters the previous month is shown.</source>
+        <target>Un rango de fechas tiene prioridad sobre el mes. Sin filtros se muestra el mes anterior.</target>
+      </trans-unit>
+      <trans-unit id="98d87660" resname="support_hours.report.total_hours">
+        <source>Support hours</source>
+        <target>Horas de soporte</target>
+      </trans-unit>
+      <trans-unit id="b7cd0c0e" resname="support_hours.report.entries">
+        <source>Entries</source>
+        <target>Registros</target>
+      </trans-unit>
+      <trans-unit id="0eb091e0" resname="support_hours.report.empty">
+        <source>No support hours found for %period%.</source>
+        <target>No se encontraron horas de soporte para %period%.</target>
+      </trans-unit>
+      <trans-unit id="f8a4b3b8" resname="support_hours.report.summary_title">
+        <source>Summary by customer — %period%</source>
+        <target>Resumen por cliente — %period%</target>
+      </trans-unit>
+      <trans-unit id="3c69931e" resname="support_hours.report.total">
+        <source>Total</source>
+        <target>Total</target>
+      </trans-unit>
+      <trans-unit id="b1c5cd3c" resname="support_hours.report.detail">
+        <source>Details</source>
+        <target>Detalle</target>
+      </trans-unit>
+      <trans-unit id="b71f54a9" resname="support_hours.report.range">
+        <source>%first%–%last% of %total%</source>
+        <target>%first%–%last% de %total%</target>
+      </trans-unit>
+      <trans-unit id="f16a0e0b" resname="support_hours.report.previous">
+        <source>Previous</source>
+        <target>Anterior</target>
+      </trans-unit>
+      <trans-unit id="2b2ac96e" resname="support_hours.report.next">
+        <source>Next</source>
+        <target>Siguiente</target>
+      </trans-unit>
+      <trans-unit id="cea5cef9" resname="support_hours.error.invalid_range">
+        <source>Use valid dates in YYYY-MM-DD format.</source>
+        <target>Usa fechas válidas en formato AAAA-MM-DD.</target>
+      </trans-unit>
+      <trans-unit id="0160feb7" resname="support_hours.error.invalid_month">
+        <source>Use a valid month in YYYY-MM format.</source>
+        <target>Usa un mes válido en formato AAAA-MM.</target>
+      </trans-unit>
+      <trans-unit id="8d0b815c" resname="support_hours.error.reversed_range">
+        <source>The start date must not be after the end date.</source>
+        <target>La fecha de inicio no puede ser posterior a la fecha de fin.</target>
+      </trans-unit>
+      <trans-unit id="e0e20eb0" resname="support_hours.settings.criterion_title">
+        <source>What counts as support</source>
+        <target>Qué cuenta como soporte</target>
+      </trans-unit>
+      <trans-unit id="0a6f8ebf" resname="support_hours.settings.criterion_help">
+        <source>A timesheet counts as support when its project matches &lt;strong&gt;any&lt;/strong&gt; of these rules.</source>
+        <target>Un registro es soporte si su proyecto cumple &lt;strong&gt;cualquiera&lt;/strong&gt; de estas reglas.</target>
+      </trans-unit>
+      <trans-unit id="70682359" resname="support_hours.settings.projects_placeholder">
+        <source>Search and add projects…</source>
+        <target>Busca y agrega proyectos…</target>
+      </trans-unit>
+      <trans-unit id="29481313" resname="support_hours.settings.hidden">
+        <source>(hidden)</source>
+        <target>(oculto)</target>
+      </trans-unit>
+      <trans-unit id="990b0102" resname="support_hours.settings.projects_help">
+        <source>Individual projects, from any customer.</source>
+        <target>Proyectos puntuales, de cualquier cliente.</target>
+      </trans-unit>
+      <trans-unit id="39fcf5d0" resname="support_hours.settings.customers">
+        <source>Whole customers</source>
+        <target>Clientes completos</target>
+      </trans-unit>
+      <trans-unit id="b6cade6a" resname="support_hours.settings.customers_placeholder">
+        <source>Search and add customers…</source>
+        <target>Busca y agrega clientes…</target>
+      </trans-unit>
+      <trans-unit id="b6dcacea" resname="support_hours.settings.customers_help">
+        <source>Every project of these customers, including those created later.</source>
+        <target>Todos los proyectos de estos clientes, incluidos los que se creen después.</target>
+      </trans-unit>
+      <trans-unit id="a33fb165" resname="support_hours.settings.project_names">
+        <source>Project names</source>
+        <target>Nombres de proyecto</target>
+      </trans-unit>
+      <trans-unit id="794cd8c1" resname="support_hours.settings.project_names_placeholder">
+        <source>Support</source>
+        <target>Soporte</target>
+      </trans-unit>
+      <trans-unit id="984950fb" resname="support_hours.settings.project_names_help">
+        <source>Comma-separated. Every project with exactly this name counts, for every customer, so new projects with that name are included automatically.</source>
+        <target>Separados por coma. Cualquier proyecto con este nombre exacto cuenta, para todos los clientes, así los proyectos nuevos con ese nombre se incluyen solos.</target>
+      </trans-unit>
+      <trans-unit id="f53f3755" resname="support_hours.settings.delivery_title">
+        <source>Monthly email</source>
+        <target>Envío mensual</target>
+      </trans-unit>
+      <trans-unit id="8d547950" resname="support_hours.settings.recipients">
+        <source>Recipients</source>
+        <target>Destinatarios</target>
+      </trans-unit>
+      <trans-unit id="8d8a8a1c" resname="support_hours.settings.recipients_help">
+        <source>One email address per line (or comma-separated). Used by the monthly Excel report email.</source>
+        <target>Un email por línea (o separados por coma). Los usa el envío mensual del reporte en Excel.</target>
+      </trans-unit>
+      <trans-unit id="193bc2cb" resname="support_hours.settings.back_to_report">
+        <source>Back to report</source>
+        <target>Volver al reporte</target>
+      </trans-unit>
+      <trans-unit id="e45c4e32" resname="support_hours.settings.matching_title">
+        <source>Projects included now (%count%)</source>
+        <target>Proyectos incluidos hoy (%count%)</target>
+      </trans-unit>
+      <trans-unit id="d2b4e9d8" resname="support_hours.settings.no_match">
+        <source>No project matches the saved criterion.</source>
+        <target>Ningún proyecto cumple el criterio guardado.</target>
+      </trans-unit>
+      <trans-unit id="842a5cee" resname="support_hours.settings.matching_help">
+        <source>The list reflects the saved settings and is updated when you save.</source>
+        <target>La lista refleja lo guardado; se actualiza al guardar.</target>
+      </trans-unit>
+      <trans-unit id="62e700f2" resname="support_hours.settings.reason.name">
+        <source>name</source>
+        <target>nombre</target>
+      </trans-unit>
+      <trans-unit id="20ae72c4" resname="support_hours.settings.reason.project">
+        <source>project added</source>
+        <target>proyecto agregado</target>
+      </trans-unit>
+      <trans-unit id="42e6e36b" resname="support_hours.settings.reason.customer">
+        <source>whole customer</source>
+        <target>cliente completo</target>
+      </trans-unit>
+      <trans-unit id="7f2eafc5" resname="support_hours.settings.error.invalid_emails">
+        <source>Invalid email addresses: %emails%</source>
+        <target>Emails no válidos: %emails%</target>
+      </trans-unit>
+      <trans-unit id="5288c4c8" resname="support_hours.settings.error.unknown_ids">
+        <source>Some projects or customers no longer exist. Reload the page.</source>
+        <target>Hay proyectos o clientes que ya no existen. Recarga la página.</target>
+      </trans-unit>
+      <trans-unit id="91b75975" resname="support_hours.settings.error.no_criterion">
+        <source>Define at least one criterion: a project name, a project or a customer.</source>
+        <target>Define al menos un criterio: un nombre de proyecto, un proyecto o un cliente.</target>
+      </trans-unit>
+      <trans-unit id="b10e876a" resname="support_hours.workbook.summary">
+        <source>Summary</source>
+        <target>Resumen</target>
+      </trans-unit>
+      <trans-unit id="1c926606" resname="support_hours.workbook.user_email">
+        <source>User (Email)</source>
+        <target>Usuario (Email)</target>
+      </trans-unit>
+      <trans-unit id="d9a7e7a3" resname="support_hours.workbook.duration_hours">
+        <source>Duration (hours)</source>
+        <target>Duración (horas)</target>
+      </trans-unit>
+      <trans-unit id="99259faf" resname="support_hours.workbook.total">
+        <source>TOTAL</source>
+        <target>TOTAL</target>
+      </trans-unit>
+      <trans-unit id="b17076e5" resname="support_hours.workbook.total_hours">
+        <source>Total hours</source>
+        <target>Total Horas</target>
+      </trans-unit>
+      <trans-unit id="e462c3e1" resname="support_hours.workbook.grand_total">
+        <source>GRAND TOTAL</source>
+        <target>TOTAL GENERAL</target>
+      </trans-unit>
+      <trans-unit id="4b02c40f" resname="support_hours.email.subject">
+        <source>Support hours report - %period%</source>
+        <target>Reporte de Horas de Soporte - %period%</target>
+      </trans-unit>
+      <trans-unit id="6facbdcd" resname="support_hours.email.greeting">
+        <source>Hello,</source>
+        <target>Hola,</target>
+      </trans-unit>
+      <trans-unit id="cda3e625" resname="support_hours.email.intro">
+        <source>Attached is the support hours report for the period %period% (%slug%).</source>
+        <target>Adjunto encontrarás el reporte de horas de soporte para el período: %period% (%slug%).</target>
+      </trans-unit>
+      <trans-unit id="53be7784" resname="support_hours.email.customers">
+        <source>Number of customers: %count%</source>
+        <target>Total de clientes: %count%</target>
+      </trans-unit>
+      <trans-unit id="9eb2c817" resname="support_hours.email.closing">
+        <source>Regards,</source>
+        <target>Saludos,</target>
+      </trans-unit>
+      <trans-unit id="902c3b2c" resname="support_hours.email.signature">
+        <source>Kimai</source>
+        <target>Kimai</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

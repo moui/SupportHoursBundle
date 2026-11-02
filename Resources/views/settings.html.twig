@@ -1,0 +1,112 @@
+{% extends 'reporting/layout.html.twig' %}
+
+{% block report %}
+    {% from '@theme/components/alert.html.twig' import alert %}
+
+    {% for error in errors %}
+        {{ alert({type: 'danger', important: true, description: error.key|trans(error.params)}) }}
+    {% endfor %}
+
+    <form method="post" action="{{ path('support_hours_settings_save') }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('support_hours_settings') }}">
+
+        <div class="row row-cards">
+            <div class="col-lg-7">
+                {% embed '@theme/embeds/card.html.twig' %}
+                    {% block box_title %}{{ 'support_hours.settings.criterion_title'|trans }}{% endblock %}
+                    {% block box_body %}
+                        <p class="text-secondary">
+                            {{ 'support_hours.settings.criterion_help'|trans|raw }}
+                        </p>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="sh_project_ids">{{ 'projects'|trans }}</label>
+                            <select class="form-select selectpicker" id="sh_project_ids" name="project_ids[]" multiple
+                                    data-placeholder="{{ 'support_hours.settings.projects_placeholder'|trans }}">
+                                {% for project in project_options %}
+                                    {% if project.visible or project.id in values.project_ids %}
+                                        <option value="{{ project.id }}" {{ project.id in values.project_ids ? 'selected' : '' }}>
+                                            {{ project.label }}{{ project.visible ? '' : ' ' ~ 'support_hours.settings.hidden'|trans }}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <div class="form-hint">{{ 'support_hours.settings.projects_help'|trans }}</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="sh_customer_ids">{{ 'support_hours.settings.customers'|trans }}</label>
+                            <select class="form-select selectpicker" id="sh_customer_ids" name="customer_ids[]" multiple
+                                    data-placeholder="{{ 'support_hours.settings.customers_placeholder'|trans }}">
+                                {% for customer in customer_options %}
+                                    {% if customer.visible or customer.id in values.customer_ids %}
+                                        <option value="{{ customer.id }}" {{ customer.id in values.customer_ids ? 'selected' : '' }}>
+                                            {{ customer.label }}{{ customer.visible ? '' : ' ' ~ 'support_hours.settings.hidden'|trans }}
+                                        </option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <div class="form-hint">{{ 'support_hours.settings.customers_help'|trans }}</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="sh_project_names">{{ 'support_hours.settings.project_names'|trans }}</label>
+                            <input class="form-control" id="sh_project_names" name="project_names" value="{{ values.project_names }}"
+                                   placeholder="{{ 'support_hours.settings.project_names_placeholder'|trans }}">
+                            <div class="form-hint">
+                                {{ 'support_hours.settings.project_names_help'|trans }}
+                            </div>
+                        </div>
+                    {% endblock %}
+                {% endembed %}
+
+                {% embed '@theme/embeds/card.html.twig' %}
+                    {% block box_title %}{{ 'support_hours.settings.delivery_title'|trans }}{% endblock %}
+                    {% block box_body %}
+                        <label class="form-label" for="sh_recipients">{{ 'support_hours.settings.recipients'|trans }}</label>
+                        <textarea class="form-control" id="sh_recipients" name="recipients" rows="3"
+                                  placeholder="support-reports@example.com">{{ values.recipients }}</textarea>
+                        <div class="form-hint">
+                            {{ 'support_hours.settings.recipients_help'|trans }}
+                        </div>
+                    {% endblock %}
+                {% endembed %}
+
+                <div class="btn-list">
+                    <button type="submit" class="btn btn-primary">{{ 'action.save'|trans }}</button>
+                    <a class="btn" href="{{ path('support_hours_report') }}">{{ 'support_hours.settings.back_to_report'|trans }}</a>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                {% embed '@theme/embeds/card.html.twig' %}
+                    {% block box_title %}{{ 'support_hours.settings.matching_title'|trans({'%count%': matching_projects|length}) }}{% endblock %}
+                    {% block box_body_class %}p-0{% endblock %}
+                    {% block box_body %}
+                        {% if matching_projects|length == 0 %}
+                            <div class="p-3 text-secondary">{{ 'support_hours.settings.no_match'|trans }}</div>
+                        {% else %}
+                            <div style="max-height: 32rem; overflow-y: auto;">
+                                <table class="table table-sm table-vcenter card-table">
+                                    <tbody>
+                                        {% for project in matching_projects %}
+                                            <tr class="{{ project.visible ? '' : 'text-secondary' }}">
+                                                <td>{{ project.label }}{{ project.visible ? '' : ' ' ~ 'support_hours.settings.hidden'|trans }}</td>
+                                                <td class="text-end text-nowrap">
+                                                    {% for reason in project.reasons %}
+                                                        <span class="badge bg-azure-lt">{{ reason|trans }}</span>
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                {% endembed %}
+                <p class="text-secondary small">{{ 'support_hours.settings.matching_help'|trans }}</p>
+            </div>
+        </div>
+    </form>
+{% endblock %}
